@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitación Dama de Honor</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --verde-principal: #2f5d50;
+  --verde-oscuro: #1e3d35;
+  --verde-suave: #e8f3ef;
+  --blanco: #ffffff;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: url("fondo.jpg") no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Inter', sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* SOBRE */
+.wrapper {
+  position: relative;
+  width: 400px;
+  height: 260px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--verde-principal);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  transition: opacity 1s ease;
+  z-index: 5;
+}
+
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--verde-oscuro);
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  transform-origin: top;
+  transition: transform 1s cubic-bezier(0.4,0,0.2,1);
+  z-index: 10;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+/* CARTA */
+.letter {
+  position: absolute;
+  width: 400px;
+  max-width: 90vw;
+  height: auto;
+  background: rgba(47, 93, 80, 0.9);
+  border-radius: 14px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, 50%) scale(0.7);
+  padding: 40px;
+  text-align: center;
+  opacity: 0;
+  transition: all 1s cubic-bezier(0.4,0,0.2,1);
+  z-index: 20;
+  pointer-events: none;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+}
+
+.letter h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.letter p {
+  font-size: 18px;
+  line-height: 1.7;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.question {
+  font-size: 24px;
+  margin: 20px 0;
+  font-weight: 500;
+  color: white;
+}
+
+.buttons {
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+button {
+  padding: 14px 28px;
+  margin: 10px;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-si {
+  background: white;
+  color: var(--verde-principal);
+}
+
+.btn-si:hover { 
+  background: var(--verde-suave); 
+}
+
+.btn-abrazo {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+}
+
+.btn-abrazo:hover { 
+  background: rgba(255,255,255,0.2); 
+}
+
+/* Animaciones */
+.scene.open .flap { 
+  transform: rotateX(180deg); 
+  box-shadow: none; 
+}
+
+.scene.open .letter {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.scene.open .buttons {
+  opacity: 1;
+  transition-delay: 0.6s;
+}
+
+.scene.open .wrapper {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 480px){
+  .letter { width: 280px; padding: 30px; }
+  .letter h1 { font-size: 24px; }
+  .letter p { font-size: 16px; }
+  .question { font-size: 20px; }
+  button { font-size: 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+
+  <div class="wrapper" id="wrapper" onclick="openEnvelope()">
+    <div class="flap"></div>
+  </div>
+
+  <div class="letter" id="letter">
+    <h1>Karla Marín</h1>
+    <p>Desde nuestras risas sin sentido hasta mi gran día. No puedo pensar en nadie mejor que me acompañe..</p>
+    <div class="question">¿Quieres ser mi dama de honor? 💚</div>
+    <div class="buttons">
+      <button class="btn-si" onclick="event.stopPropagation(); alert('¡Sabía que dirías que sí! 💚');">Sí, acepto</button>
+      <button class="btn-abrazo" onclick="event.stopPropagation(); alert('Abrazo infinito primero 🤍');">Necesito un abrazo</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function openEnvelope() {
+  const scene = document.getElementById('scene');
+  if (!scene.classList.contains('open')) {
+    scene.classList.add('open');
+  }
+}
+</script>
+
+</body>
+</html>
